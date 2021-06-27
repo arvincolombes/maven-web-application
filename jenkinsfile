@@ -1,0 +1,29 @@
+node
+{
+    
+def mavenHome = tool name:  "maven-3.8.1" 
+stage('excutive git')
+{
+git branch: 'development', credentialsId: '62355c50-963a-45bc-9c5f-a552b04a7748', url: 'https://github.com/arvincolombes/maven-web-application.git'
+}
+stage('bulid')
+{
+sh "${mavenHome}/bin/mvn clean package"
+}
+stage('tomcat deployment')
+{
+sshagent(['cefdf207-ab5f-4776-a208-1bb7e4b0b073'])
+{
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@3.139.88.143:/opt/tomcat9/webapps/"     
+}
+}
+stage('maill notfecation')
+{ 
+mail bcc: '', body: '''build completed 
+
+
+Regards,
+Arvinkumar''', cc: 'bhavanihoneyak47@gmail.com ', from: '', replyTo: '', subject: 'build is successfully ', to: 'arvinprince@gmail.com'    
+}
+
+}
