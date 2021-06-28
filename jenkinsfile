@@ -11,6 +11,7 @@ stage('bulid')
 {
 sh "${mavenHome}/bin/mvn clean package"
 }
+/*
 stage('tomcat deployment')
 {
 sshagent(['cefdf207-ab5f-4776-a208-1bb7e4b0b073'])
@@ -18,7 +19,6 @@ sshagent(['cefdf207-ab5f-4776-a208-1bb7e4b0b073'])
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@3.139.88.143:/opt/tomcat9/webapps/"     
 }
 }
-/*
 stage('maill notfecation')
 { 
 mail bcc: '', body: '''build completed 
