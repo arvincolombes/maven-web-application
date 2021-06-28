@@ -7,7 +7,7 @@ stage('excutive git')
 {
 git branch: 'development', credentialsId: '62355c50-963a-45bc-9c5f-a552b04a7748', url: 'https://github.com/arvincolombes/maven-web-application.git'
 }
-stage('bulid')
+stage('bulid1')
 {
 sh "${mavenHome}/bin/mvn clean package"
 }
